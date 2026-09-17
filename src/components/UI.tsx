@@ -11,6 +11,7 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import { colors as c } from '../theme';
 import { CareTask } from '../services/assessment';
+import { useCompactLayout } from '../theme/useCompactLayout';
 import { Icon } from './Icon';
 import { Entrance, useEntrance } from './Motion';
 export function Button({
@@ -73,11 +74,16 @@ export function Page({
   replayKey?: string | number;
 }) {
   const motion = useEntrance(0, false, replayKey);
+  const { compact } = useCompactLayout();
   return (
     <Animated.ScrollView
       style={[styles.scroll, motion]}
       keyboardShouldPersistTaps="handled"
-      contentContainerStyle={[styles.page, style]}
+      contentContainerStyle={[
+        styles.page,
+        compact && styles.compactPage,
+        style,
+      ]}
     >
       {children}
     </Animated.ScrollView>
@@ -153,6 +159,7 @@ export function TaskList({
 }
 export const styles = StyleSheet.create({
   scroll: { flex: 1 },
+  compactPage: { padding: 12, paddingTop: 12, paddingBottom: 20, gap: 12 },
   page: {
     padding: 16,
     paddingTop: 20,

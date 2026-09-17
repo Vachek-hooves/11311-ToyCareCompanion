@@ -23,6 +23,7 @@ import {
   ChecklistStackParams,
   TabsParams,
 } from './types';
+import { useCompactLayout } from '../theme/useCompactLayout';
 import { colors as c } from '../theme';
 const Repair = createNativeStackNavigator<RepairStackParams>(),
   Stains = createNativeStackNavigator<StainStackParams>(),
@@ -148,6 +149,22 @@ function TabIcon({
     </View>
   );
 }
+function TabLabel({ name, color }: { name: keyof TabsParams; color: string }) {
+  const { compact } = useCompactLayout();
+  const shortLabels = {
+    Repair: 'Repair',
+    Scanner: 'Scanner',
+    Stains: 'Stains',
+    Checklists: 'Saved',
+    Facts: 'Facts',
+    Calculator: 'Care',
+  };
+  return (
+    <Text numberOfLines={2} style={[s.tabLabel, { color }]}>
+      {compact ? shortLabels[name] : tabInfo[name].label}
+    </Text>
+  );
+}
 const tabOptions = ({ route }: { route: { name: keyof TabsParams } }) => ({
   headerShown: false,
   tabBarHideOnKeyboard: true,
@@ -155,11 +172,10 @@ const tabOptions = ({ route }: { route: { name: keyof TabsParams } }) => ({
   tabBarInactiveTintColor: c.muted,
   tabBarStyle: s.tabBar,
   tabBarItemStyle: s.item,
+  tabBarAccessibilityLabel: tabInfo[route.name].label.replace('\n', ' '),
   tabBarLabelPosition: 'below-icon' as const,
   tabBarLabel: ({ color }: { color: string }) => (
-    <Text numberOfLines={2} style={[s.tabLabel, { color }]}>
-      {tabInfo[route.name].label}
-    </Text>
+    <TabLabel name={route.name} color={color} />
   ),
   tabBarIcon: ({ color, focused }: { color: string; focused: boolean }) => (
     <TabIcon color={color} focused={focused} name={tabInfo[route.name].icon} />

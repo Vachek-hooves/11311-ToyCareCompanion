@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
+import { Alert, Image, StyleSheet, Text, View } from 'react-native';
+import { useCompactLayout } from '../theme/useCompactLayout';
 import {
-  Alert,
-  Image,
-  StyleSheet,
-  Text,
-  useWindowDimensions,
-  View,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+  SafeAreaView,
+  useSafeAreaInsets,
+} from 'react-native-safe-area-context';
 import { Entrance } from '../components/Motion';
 import { artwork } from '../data/assets';
 import { Body, Button, Heading, Page } from '../components/UI';
@@ -35,7 +32,12 @@ export function OnboardingScreen() {
   const [index, setIndex] = useState(0),
     [busy, setBusy] = useState(false);
   const { finishOnboarding } = useCare();
-  const { height, width } = useWindowDimensions();
+  const { height, width, compact } = useCompactLayout();
+  const insets = useSafeAreaInsets();
+  const imageSize = Math.min(
+    width - (compact ? 32 : 48),
+    (height - insets.top - insets.bottom) * (compact ? 0.35 : 0.43),
+  );
   const next = async () => {
     if (index < 3) {
       setIndex(index + 1);
@@ -52,11 +54,12 @@ export function OnboardingScreen() {
   };
   return (
     <SafeAreaView style={s.safe}>
-      <Page style={s.page}>
-        <Entrance playful replayKey={index}>
+      <Page style={compact ? s.compactPage : s.page}>
+        <Entrance playful replayKey={index} style={s.imageFrame}>
           <Image
             source={artwork.onboarding[index]}
-            style={[s.image, { height: Math.min(width - 48, height * 0.43) }]}
+            resizeMode="contain"
+            style={[s.image, { width: imageSize, height: imageSize }]}
           />
         </Entrance>
         <View style={s.progress}>
@@ -78,7 +81,7 @@ export function OnboardingScreen() {
           <Body>{slides[index][1]}</Body>
         </Entrance>
       </Page>
-      <View style={s.footer}>
+      <View style={[s.footer, compact && s.compactFooter]}>
         <Button
           title={index === 3 ? 'Get Started' : 'Next'}
           busy={busy}
@@ -91,7 +94,10 @@ export function OnboardingScreen() {
 const s = StyleSheet.create({
   safe: { flex: 1, backgroundColor: c.background },
   page: { padding: 24, paddingTop: 24, paddingBottom: 24, gap: 20 },
-  image: { width: '100%', borderRadius: 8 },
+  imageFrame: { alignItems: 'center' },
+  image: { borderRadius: 8 },
+  compactPage: { padding: 16, paddingTop: 12, paddingBottom: 12, gap: 12 },
+  compactFooter: { paddingHorizontal: 16, paddingTop: 8, paddingBottom: 8 },
   progress: {
     flexDirection: 'row',
     alignItems: 'center',

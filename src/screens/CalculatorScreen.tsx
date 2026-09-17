@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { useCompactLayout } from '../theme/useCompactLayout';
 import { calculatorQuestions } from '../data/questions';
 import { Answers, assess } from '../services/assessment';
 import { Body, Button, Heading, Page, Panel, TaskList } from '../components/UI';
 import { colors as c } from '../theme';
 export function CalculatorScreen() {
+  const { stacked } = useCompactLayout();
   const [answers, setAnswers] = useState<Answers>({}),
     [result, setResult] = useState<ReturnType<typeof assess> | null>(null);
   const reset = () => {
@@ -21,9 +23,9 @@ export function CalculatorScreen() {
       {calculatorQuestions.map(q => (
         <Panel key={q.id}>
           {result ? (
-            <View style={s.summary}>
+            <View style={[s.summary, stacked && s.stack]}>
               <Text style={s.label}>{q.label}</Text>
-              <View style={s.badge}>
+              <View style={[s.badge, stacked && s.full]}>
                 <Text style={s.selectedText}>{q.options[answers[q.id]]}</Text>
               </View>
             </View>
@@ -37,7 +39,11 @@ export function CalculatorScreen() {
                     accessibilityRole="radio"
                     accessibilityState={{ selected: answers[q.id] === i }}
                     onPress={() => setAnswers({ ...answers, [q.id]: i })}
-                    style={[s.option, answers[q.id] === i && s.selected]}
+                    style={[
+                      s.option,
+                      stacked && s.full,
+                      answers[q.id] === i && s.selected,
+                    ]}
                   >
                     <Text
                       style={[
@@ -88,6 +94,8 @@ export function CalculatorScreen() {
   );
 }
 const s = StyleSheet.create({
+  stack: { flexDirection: 'column', alignItems: 'stretch' },
+  full: { width: '100%', maxWidth: '100%' },
   label: { fontSize: 13, color: c.text, lineHeight: 20, flexShrink: 1 },
   grid: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
   option: {

@@ -13,6 +13,7 @@ import {
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { ScannerStackParams, TabsParams } from '../navigation/types';
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import { useCompactLayout } from '../theme/useCompactLayout';
 import { Entrance } from '../components/Motion';
 import { artwork } from '../data/assets';
 import { questions } from '../data/questions';
@@ -102,6 +103,7 @@ export function CareResult({
   route,
   navigation,
 }: NativeStackScreenProps<ScannerStackParams, 'CareResult'>) {
+  const { stacked } = useCompactLayout();
   const [result, setResult] = useState(() => assess(route.params.answers));
   const [name, setName] = useState(''),
     [photo, setPhoto] = useState<string>(),
@@ -158,7 +160,7 @@ export function CareResult({
     >
       <Page>
         <Panel>
-          <View style={s.inputRow}>
+          <View style={[s.inputRow, stacked && s.inputStack]}>
             <Pressable
               accessibilityRole="button"
               accessibilityLabel="Add toy photo"
@@ -178,7 +180,7 @@ export function CareResult({
               onChangeText={setName}
               editable={!busy}
               maxLength={60}
-              style={s.input}
+              style={[s.input, stacked && s.stackedInput]}
             />
           </View>
           {photo ? (
@@ -270,6 +272,8 @@ const s = StyleSheet.create({
   selected: { borderColor: c.purple, backgroundColor: '#302E48' },
   optionText: { fontSize: 15, color: c.muted, lineHeight: 22 },
   activeText: { color: c.text, fontWeight: '600' },
+  inputStack: { flexDirection: 'column' },
+  stackedInput: { flex: 0 },
   inputRow: { flexDirection: 'row', gap: 10 },
   photoButton: {
     minHeight: 44,
