@@ -13,7 +13,6 @@ const html = `<!doctype html>
 <html><head><meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
 html,body{margin:0;width:100%;height:100%;background:transparent;overflow:hidden}
-/* From Uiverse.io by S4tyendra */
 .container{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}
 .container .preloader{animation:rotate 2.3s cubic-bezier(0.75,0,0.5,1) infinite}
 @keyframes rotate{50%{transform:rotate(360deg)}100%{transform:rotate(720deg)}}
@@ -42,7 +41,6 @@ export function SplashScreen({ onComplete }: { onComplete: () => void }) {
     }
   }, [onComplete]);
   useEffect(() => {
-    // A slow WebView must get time to paint before the splash is dismissed.
     const timer = setTimeout(finish, 10000);
     return () => {
       clearTimeout(timer);

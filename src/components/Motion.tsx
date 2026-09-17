@@ -7,7 +7,6 @@ import {
   ViewStyle,
 } from 'react-native';
 
-// Default to still content until the system preference is known.
 export function useReducedMotion() {
   const [reduced, setReduced] = useState(true);
   useEffect(() => {

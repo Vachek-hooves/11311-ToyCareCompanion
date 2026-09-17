@@ -3,7 +3,6 @@ import { launchImageLibrary } from 'react-native-image-picker';
 
 const photoFolder = 'toy-photos/';
 
-// Resolve relative paths and repair older absolute iOS container paths.
 export function photoUri(photo?: string): string | undefined {
   if (!photo) return;
   const marker = photo.lastIndexOf(`/${photoFolder}`);
