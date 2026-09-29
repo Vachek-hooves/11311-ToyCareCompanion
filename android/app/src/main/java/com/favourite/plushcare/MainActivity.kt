@@ -1,4 +1,4 @@
-package com.favouriteplushcare
+package com.favourite.plushcare
 
 import com.swmansion.rnscreens.fragment.restoration.RNScreensFragmentFactory
 import android.os.Bundle
