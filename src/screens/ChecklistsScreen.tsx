@@ -206,5 +206,5 @@ const s = StyleSheet.create({
   chevron: { color: c.muted, fontSize: 26 },
   hero: { width: '100%', aspectRatio: 1.4, borderRadius: 8 },
   between: { flexDirection: 'row', justifyContent: 'space-between', gap: 12 },
-  percent: { color: c.purple, fontSize: 16, fontWeight: '700' },
+  percent: { color: c.accent, fontSize: 16, fontWeight: '700' },
 });

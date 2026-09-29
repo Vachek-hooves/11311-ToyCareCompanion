@@ -22,7 +22,7 @@ function Root() {
   if (!ready)
     return (
       <View style={s.center}>
-        <ActivityIndicator color={c.purple} />
+        <ActivityIndicator color={c.accent} />
       </View>
     );
   return onboarded ? <AppNavigator /> : <OnboardingScreen />;

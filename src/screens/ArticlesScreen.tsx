@@ -32,7 +32,7 @@ export function ArticlesScreen({
           delay={index * 60}
           style={[
             s.card,
-            { borderColor: category === 'repair' ? c.purple : c.blue },
+            { borderColor: category === 'repair' ? c.accent : c.blue },
           ]}
         >
           <Pressable
@@ -198,7 +198,7 @@ const s = StyleSheet.create({
   category: { fontSize: 10, letterSpacing: 1, flex: 1 },
   title: { fontSize: 16, color: c.text, fontWeight: '600', lineHeight: 23 },
   description: { color: c.muted, fontSize: 14, lineHeight: 23, marginTop: 8 },
-  warning: { borderColor: c.purple, backgroundColor: '#29283D' },
+  warning: { borderColor: c.accent, backgroundColor: c.highlight },
   answers: { flexDirection: 'row', gap: 10 },
   answer: { flex: 1 },
   feedback: { fontSize: 14, lineHeight: 22, textAlign: 'center' },

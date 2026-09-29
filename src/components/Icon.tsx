@@ -1,4 +1,5 @@
 import React from 'react';
+import { colors as c } from '../theme';
 import Svg, { Path, Rect, Circle } from 'react-native-svg';
 export type IconName =
   | 'repair'
@@ -14,7 +15,7 @@ export type IconName =
   | 'trash';
 export function Icon({
   name,
-  color = '#B4B6BF',
+  color = c.muted,
   size = 22,
 }: {
   name: IconName;

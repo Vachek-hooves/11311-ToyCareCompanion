@@ -1,11 +1,15 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 import { DarkTheme, NavigationContainer } from '@react-navigation/native';
 import {
   createNativeStackNavigator,
   NativeStackScreenProps,
 } from '@react-navigation/native-stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {
+  BottomTabBar,
+  BottomTabBarProps,
+  createBottomTabNavigator,
+} from '@react-navigation/bottom-tabs';
 import { ArticlesScreen, ArticleScreen } from '../screens/ArticlesScreen';
 import {
   ScannerIntro,
@@ -131,7 +135,7 @@ const theme = {
     card: c.background,
     text: c.text,
     border: c.border,
-    primary: c.purple,
+    primary: c.accent,
   },
 };
 function TabIcon({
@@ -168,7 +172,7 @@ function TabLabel({ name, color }: { name: keyof TabsParams; color: string }) {
 const tabOptions = ({ route }: { route: { name: keyof TabsParams } }) => ({
   headerShown: false,
   tabBarHideOnKeyboard: true,
-  tabBarActiveTintColor: c.purple,
+  tabBarActiveTintColor: c.accent,
   tabBarInactiveTintColor: c.muted,
   tabBarStyle: s.tabBar,
   tabBarItemStyle: s.item,
@@ -181,10 +185,18 @@ const tabOptions = ({ route }: { route: { name: keyof TabsParams } }) => ({
     <TabIcon color={color} focused={focused} name={tabInfo[route.name].icon} />
   ),
 });
+function FloatingTabBar(props: BottomTabBarProps) {
+  if (Platform.OS !== 'android') return <BottomTabBar {...props} />;
+  return (
+    <View style={[s.tabBarContainer, { paddingBottom: props.insets.bottom + 20 }]}>
+      <BottomTabBar {...props} insets={{ ...props.insets, bottom: 0 }} />
+    </View>
+  );
+}
 export function AppNavigator() {
   return (
     <NavigationContainer theme={theme}>
-      <Tabs.Navigator screenOptions={tabOptions}>
+      <Tabs.Navigator screenOptions={tabOptions} tabBar={FloatingTabBar}>
         <Tabs.Screen name="Repair" component={RepairNavigator} />
         <Tabs.Screen name="Scanner" component={ScannerNavigator} />
         <Tabs.Screen name="Stains" component={StainNavigator} />
@@ -216,11 +228,28 @@ export function AppNavigator() {
   );
 }
 const s = StyleSheet.create({
+  tabBarContainer: {
+    backgroundColor: c.background,
+    paddingHorizontal: 12,
+    paddingTop: 6,
+  },
   tabBar: {
     backgroundColor: c.inset,
     borderTopColor: c.border,
     minHeight: 72,
     paddingTop: 2,
+    ...(Platform.OS === 'android' && {
+      height: 72,
+      borderWidth: 1,
+      borderColor: c.border,
+      borderRadius: 22,
+      paddingBottom: 6,
+      elevation: 8,
+      shadowColor: '#000000',
+      shadowOffset: { width: 0, height: 4 },
+      shadowOpacity: 0.25,
+      shadowRadius: 10,
+    }),
   },
   item: { paddingHorizontal: 0 },
   tabLabel: {
@@ -236,5 +265,5 @@ const s = StyleSheet.create({
     borderTopWidth: 2,
     borderTopColor: 'transparent',
   },
-  focused: { borderTopColor: c.purple },
+  focused: { borderTopColor: c.accent },
 });

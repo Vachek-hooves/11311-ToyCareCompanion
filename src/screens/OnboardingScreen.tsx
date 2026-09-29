@@ -8,7 +8,7 @@ import {
 import { Entrance } from '../components/Motion';
 import { artwork } from '../data/assets';
 import { Body, Button, Heading, Page } from '../components/UI';
-import { colors as c } from '../theme';
+import { appName, colors as c } from '../theme';
 import { useCare } from '../state/CareProvider';
 const slides = [
   [
@@ -55,6 +55,7 @@ export function OnboardingScreen() {
   return (
     <SafeAreaView style={s.safe}>
       <Page style={compact ? s.compactPage : s.page}>
+        <Text accessibilityRole="header" style={s.brand}>{appName}</Text>
         <Entrance playful replayKey={index} style={s.imageFrame}>
           <Image
             source={artwork.onboarding[index]}
@@ -68,7 +69,7 @@ export function OnboardingScreen() {
               key={i}
               style={[
                 s.step,
-                { backgroundColor: i <= index ? c.purple : c.border },
+                { backgroundColor: i <= index ? c.accent : c.border },
               ]}
             />
           ))}
@@ -92,6 +93,7 @@ export function OnboardingScreen() {
   );
 }
 const s = StyleSheet.create({
+  brand: { color: c.text, fontSize: 20, fontWeight: '700', textAlign: 'center' },
   safe: { flex: 1, backgroundColor: c.background },
   page: { padding: 24, paddingTop: 24, paddingBottom: 24, gap: 20 },
   imageFrame: { alignItems: 'center' },

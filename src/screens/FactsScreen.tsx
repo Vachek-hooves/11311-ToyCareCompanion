@@ -22,7 +22,7 @@ export function FactsScreen() {
         <Panel
           delay={index * 55}
           style={{
-            borderColor: index % 2 ? c.blue : c.purple,
+            borderColor: index % 2 ? c.blue : c.accent,
             borderLeftWidth: s.card.borderLeftWidth,
           }}
         >

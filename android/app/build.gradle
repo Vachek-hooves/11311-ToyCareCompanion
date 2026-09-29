@@ -77,9 +77,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace "com.favourite.plushcare"
+    namespace "com.toycarecompanion"
     defaultConfig {
-        applicationId "com.favourite.plushcare"
+        applicationId "com.toycarecompanion"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

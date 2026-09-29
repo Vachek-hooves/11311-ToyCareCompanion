@@ -62,7 +62,7 @@ export function Questionnaire({
             key={i}
             style={[
               s.segment,
-              { backgroundColor: i <= step ? c.purple : c.border },
+              { backgroundColor: i <= step ? c.accent : c.border },
             ]}
           />
         ))}
@@ -269,7 +269,7 @@ const s = StyleSheet.create({
     backgroundColor: c.card,
     padding: 18,
   },
-  selected: { borderColor: c.purple, backgroundColor: '#302E48' },
+  selected: { borderColor: c.accent, backgroundColor: c.selected },
   optionText: { fontSize: 15, color: c.muted, lineHeight: 22 },
   activeText: { color: c.text, fontWeight: '600' },
   inputStack: { flexDirection: 'column' },
@@ -305,7 +305,7 @@ const s = StyleSheet.create({
     justifyContent: 'center',
     gap: 12,
   },
-  result: { borderColor: c.purple, backgroundColor: '#29283D' },
+  result: { borderColor: c.accent, backgroundColor: c.highlight },
   resultTitle: {
     color: c.text,
     fontSize: 16,

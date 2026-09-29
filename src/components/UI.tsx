@@ -46,8 +46,8 @@ export function Button({
           secondary
             ? [c.background, c.background]
             : green
-            ? ['#609781', '#487D6C']
-            : ['#8873B8', '#7864A5']
+            ? [c.greenButtonStart, c.greenButtonEnd]
+            : [c.buttonStart, c.buttonEnd]
         }
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
@@ -197,7 +197,7 @@ export const styles = StyleSheet.create({
     backgroundColor: c.inset,
     overflow: 'hidden',
   },
-  fill: { height: '100%', backgroundColor: c.purple, borderRadius: 5 },
+  fill: { height: '100%', backgroundColor: c.accent, borderRadius: 5 },
   task: {
     flexDirection: 'row',
     alignItems: 'center',
