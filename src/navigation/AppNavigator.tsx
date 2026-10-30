@@ -1,6 +1,5 @@
 import React from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
-import { DarkTheme, NavigationContainer } from '@react-navigation/native';
 import {
   createNativeStackNavigator,
   NativeStackScreenProps,
@@ -127,17 +126,6 @@ const tabInfo: Record<keyof TabsParams, { label: string; icon: IconName }> = {
   Facts: { label: 'Safety Facts', icon: 'facts' },
   Calculator: { label: 'Wash or\nReplace', icon: 'calculator' },
 };
-const theme = {
-  ...DarkTheme,
-  colors: {
-    ...DarkTheme.colors,
-    background: c.background,
-    card: c.background,
-    text: c.text,
-    border: c.border,
-    primary: c.accent,
-  },
-};
 function TabIcon({
   name,
   focused,
@@ -195,36 +183,34 @@ function FloatingTabBar(props: BottomTabBarProps) {
 }
 export function AppNavigator() {
   return (
-    <NavigationContainer theme={theme}>
-      <Tabs.Navigator screenOptions={tabOptions} tabBar={FloatingTabBar}>
-        <Tabs.Screen name="Repair" component={RepairNavigator} />
-        <Tabs.Screen name="Scanner" component={ScannerNavigator} />
-        <Tabs.Screen name="Stains" component={StainNavigator} />
-        <Tabs.Screen name="Checklists" component={ChecklistNavigator} />
-        <Tabs.Screen
-          name="Facts"
-          component={FactsScreen}
-          options={{
-            headerShown: true,
-            title: 'Safety Facts',
-            headerStyle: options.headerStyle,
-            headerTitleStyle: options.headerTitleStyle,
-            headerTintColor: c.text,
-          }}
-        />
-        <Tabs.Screen
-          name="Calculator"
-          component={CalculatorScreen}
-          options={{
-            headerShown: true,
-            title: 'Wash or Replace?',
-            headerStyle: options.headerStyle,
-            headerTitleStyle: options.headerTitleStyle,
-            headerTintColor: c.text,
-          }}
-        />
-      </Tabs.Navigator>
-    </NavigationContainer>
+    <Tabs.Navigator screenOptions={tabOptions} tabBar={FloatingTabBar}>
+      <Tabs.Screen name="Repair" component={RepairNavigator} />
+      <Tabs.Screen name="Scanner" component={ScannerNavigator} />
+      <Tabs.Screen name="Stains" component={StainNavigator} />
+      <Tabs.Screen name="Checklists" component={ChecklistNavigator} />
+      <Tabs.Screen
+        name="Facts"
+        component={FactsScreen}
+        options={{
+          headerShown: true,
+          title: 'Safety Facts',
+          headerStyle: options.headerStyle,
+          headerTitleStyle: options.headerTitleStyle,
+          headerTintColor: c.text,
+        }}
+      />
+      <Tabs.Screen
+        name="Calculator"
+        component={CalculatorScreen}
+        options={{
+          headerShown: true,
+          title: 'Wash or Replace?',
+          headerStyle: options.headerStyle,
+          headerTitleStyle: options.headerTitleStyle,
+          headerTintColor: c.text,
+        }}
+      />
+    </Tabs.Navigator>
   );
 }
 const s = StyleSheet.create({
